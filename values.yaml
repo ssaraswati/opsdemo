@@ -1,0 +1,120 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+chaoskube:
+  enabled: true
+
+prometheus:
+  server:
+    ingress:
+      enabled: true
+      hosts:
+        - prometheus.localtest.me 
+  alertmanager:
+    ingress:
+      enabled: true
+      hosts:
+        - prometheus-alertmanager.localtest.me
+
+prometheusnodeexporter:
+  enabled: true
+  serviceAccount:
+    name: node-exporter
+
+kubernetesdashboard:
+  enabled: false
+  ingress:
+    enabled: true
+    hosts:
+    - dashboard.localtest.me
+
+grafana:
+  downloadDashboardsImage:
+    repository: appropriate/curl
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: "http://opsdemo-prometheus-server"
+        access: proxy
+        isDefault: true
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+  dashboards:
+    default:
+      kubernetes-monitoring:
+        gnetId: 315
+        revision: 3
+        datasource: Prometheus
+      kubernetes-all-nodes:
+        gnetId: 3131
+        revision: 1
+        datasource: Prometheus
+      kubernetes-cluster-monitoring:
+        gnetId: 3119
+        revision: 2
+        datasource: Prometheus
+      kubernetes-cluster:
+        gnetId: 7249
+        revision: 1
+        datasource: Prometheus
+      kubernetes-dashboard:
+        url: https://raw.githubusercontent.com/Azure/blackbelt-aks-hackfest/master/labs/helper-files/grafana-dashboard.json
+        datasource: Prometheus
+      ingress-dashboard:
+        url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.yaml
+        datasource: Prometheus
+  ingress:
+    enabled: true
+    hosts:
+      - grafana.localtest.me
+
+nginxingress:
+  enabled: false
+  controller:
+    stats:
+      enabled: true
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/port: "10254"
+          prometheus.io/scrape: "true"
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - site.localtest.me
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+

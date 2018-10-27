@@ -1,0 +1,13 @@
+# Annotations for pods to be scraped
+    annotations:
+        prometheus.io/port: "10254"
+        prometheus.io/scrape: "true"
+
+http://site.localtest.me
+http://prometheus.localtest.me 
+http://prometheus-alertmanager.localtest.me
+http://grafana.localtest.me
+http://opsview.localtest.me
+username: admin
+password:
+kubectl get secret --namespace default {{ .Release.Name }}-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
