@@ -6,8 +6,8 @@ dependencies:
   - name: prometheus-node-exporter
     version: 0.5.0
     repository: https://kubernetes-charts.storage.googleapis.com
-    alias: prometheusnodeexporter
     condition: prometheusnodeexporter.enabled
+    alias: prometheusnodeexporter
   - name: grafana
     version: 1.17.4
     repository: https://kubernetes-charts.storage.googleapis.com
@@ -15,15 +15,22 @@ dependencies:
   - name: nginx-ingress
     version: 0.29.2
     repository: https://kubernetes-charts.storage.googleapis.com
-    alias: nginxingress
-    condition: nginxingress.enabled
+    condition: nginx-ingress.enabled
   - name: kubernetes-dashboard
     version: 0.7.5
     repository: https://kubernetes-charts.storage.googleapis.com
-    alias: kubernetesdashboard
-    condition: kubernetesdashboard.enabled
+    condition: kubernetes-dashboard.enabled
   - name: chaoskube
     version: 0.10.0
     repository: https://kubernetes-charts.storage.googleapis.com
     condition: chaoskube.enabled
+  - name: fluentd-elasticsearch
+    version: 1.1.0
+    repository: https://kubernetes-charts.storage.googleapis.com
+    condition: fluentd-elasticsearch.enabled
+  - name: seq
+    version: 0.1.1
+    repository: https://kubernetes-charts.storage.googleapis.com
+    condition: fluentd.enabled
+    
  
