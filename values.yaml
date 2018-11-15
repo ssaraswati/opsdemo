@@ -156,6 +156,97 @@ grafana:
 
   dashboards:
     default:
+      some-dashboard:
+        json: >
+            {"__inputs": [],
+            "__requires": [
+              {
+                "type": "grafana",
+                "id": "grafana",
+                "name": "Grafana",
+                "version": "5.3.2"
+              },
+              {
+                "type": "panel",
+                "id": "grafana-clock-panel",
+                "name": "Clock",
+                "version": "0.1.0"
+              }
+            ],
+            "annotations": {
+              "list": [
+                {
+                  "builtIn": 1,
+                  "datasource": "-- Grafana --",
+                  "enable": true,
+                  "hide": true,
+                  "iconColor": "rgba(0, 211, 255, 1)",
+                  "name": "Annotations & Alerts",
+                  "type": "dashboard"
+                }
+              ]
+            },
+            "editable": true,
+            "gnetId": null,
+            "graphTooltip": 0,
+            "id": null,
+            "links": [],
+            "panels": [
+              {
+                "bgColor": null,
+                "clockType": "24 hour",
+                "countdownSettings": {
+                  "customFormat": null,
+                  "endCountdownTime": "2018-11-16T11:52:00.000Z",
+                  "endText": "00:00:00"
+                },
+                "dateSettings": {
+                  "dateFormat": "YYYY-MM-DD",
+                  "fontSize": "20px",
+                  "fontWeight": "normal",
+                  "showDate": false
+                },
+                "gridPos": {
+                  "h": 9,
+                  "w": 12,
+                  "x": 0,
+                  "y": 0
+                },
+                "id": 2,
+                "mode": "time",
+                "offsetFromUtc": null,
+                "offsetFromUtcMinutes": null,
+                "timeSettings": {
+                  "customFormat": "HH:mm:ss",
+                  "fontSize": "60px",
+                  "fontWeight": "normal"
+                },
+                "title": "Clock",
+                "type": "grafana-clock-panel"
+              }
+            ],
+            "schemaVersion": 16,
+            "style": "dark",
+            "tags": [],
+            "templating": {
+              "list": []
+            },
+            "time": {
+              "from": "now-6h",
+              "to": "now"
+            },
+            "timepicker": {
+              "refresh_intervals": [
+                "5s"
+              ],
+              "time_options": [
+                "5m"
+              ]
+            },
+            "timezone": "",
+            "title": "Clock",
+            "uid": "FZbsFhBmk",
+            "version": 1}
       pods:
         gnetId: 4686
         revision: 2
