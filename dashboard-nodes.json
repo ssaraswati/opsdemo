@@ -3,7 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "Prometheus",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -59,7 +59,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(node_cpu{mode=\"idle\"}[2m])) * 100",
+          "expr": "sum(rate(node_cpu_seconds_total[2m]))",
+          "format": "time_series",
           "hide": false,
           "intervalFactor": 10,
           "legendFormat": "",
@@ -70,7 +71,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Idle cpu",
+      "title": "Cpu",
       "tooltip": {
         "msResolution": false,
         "shared": true,
@@ -260,7 +261,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(node_memory_MemTotal) - sum(node_memory_MemFree) - sum(node_memory_Buffers) - sum(node_memory_Cached)",
+          "expr": "sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree) - sum(node_memory_Buffers_bytes) - sum(node_memory_Cached_bytes)",
+          "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "memory usage",
           "metric": "memo",
@@ -269,7 +271,8 @@
           "target": ""
         },
         {
-          "expr": "sum(node_memory_Buffers)",
+          "expr": "sum(node_memory_Buffers_bytes)",
+          "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "memory buffers",
@@ -279,7 +282,8 @@
           "target": ""
         },
         {
-          "expr": "sum(node_memory_Cached)",
+          "expr": "sum(node_memory_Cached_bytes)",
+          "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "memory cached",
@@ -289,7 +293,8 @@
           "target": ""
         },
         {
-          "expr": "sum(node_memory_MemFree)",
+          "expr": "sum(node_memory_MemFree_bytes)",
+          "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "memory free",
@@ -403,7 +408,8 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "((sum(node_memory_MemTotal) - sum(node_memory_MemFree) - sum(node_memory_Buffers) - sum(node_memory_Cached)) / sum(node_memory_MemTotal)) * 100",
+          "expr": "((sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree_bytes) - sum(node_memory_Buffers_bytes) - sum(node_memory_Cached_bytes)) / sum(node_memory_MemTotal_bytes)) * 100",
+          "format": "time_series",
           "intervalFactor": 2,
           "metric": "",
           "refId": "A",
@@ -478,7 +484,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(node_disk_bytes_read[5m]))",
+          "expr": "sum(rate(node_disk_read_bytes_total[5m]))",
+          "format": "time_series",
           "hide": false,
           "intervalFactor": 4,
           "legendFormat": "read",
@@ -487,14 +494,16 @@
           "target": ""
         },
         {
-          "expr": "sum(rate(node_disk_bytes_written[5m]))",
+          "expr": "sum(rate(node_disk_written_bytes_total[5m]))",
+          "format": "time_series",
           "intervalFactor": 4,
           "legendFormat": "written",
           "refId": "B",
           "step": 8
         },
         {
-          "expr": "sum(rate(node_disk_io_time_ms[5m]))",
+          "expr": "sum(rate(node_disk_io_time_seconds_total[5m]))",
+          "format": "time_series",
           "intervalFactor": 4,
           "legendFormat": "io time",
           "refId": "C",
@@ -605,7 +614,8 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(sum(node_filesystem_size{device!=\"rootfs\"}) - sum(node_filesystem_free{device!=\"rootfs\"})) / sum(node_filesystem_size{device!=\"rootfs\"})",
+          "expr": "(sum(node_filesystem_size_bytes{device!=\"rootfs\"}) - sum(node_filesystem_free_bytes{device!=\"rootfs\"})) / sum(node_filesystem_size_bytes{device!=\"rootfs\"})",
+          "format": "time_series",
           "intervalFactor": 2,
           "refId": "A",
           "step": 60,
@@ -671,7 +681,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(node_network_receive_bytes{device!~\"lo\"}[5m]))",
+          "expr": "sum(rate(node_network_receive_bytes_total{device!~\"lo\"}[5m]))",
+          "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
           "legendFormat": "",
@@ -767,7 +778,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(node_network_transmit_bytes{device!~\"lo\"}[5m]))",
+          "expr": "sum(rate(node_network_transmit_bytes_total{device!~\"lo\"}[5m]))",
+          "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
           "legendFormat": "",

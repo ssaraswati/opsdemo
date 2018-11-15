@@ -29,12 +29,6 @@ seq:
   #     - logs.localtest.me 
   #     - seq.localtest.me 
 fluentd-elasticsearch:
-
-  image:
-    repository: fluentdpython
-    tag: v2
-  enabled: true
-fluentd-elasticsearch:
   enabled: false
 fluentd:
   enabled: true
