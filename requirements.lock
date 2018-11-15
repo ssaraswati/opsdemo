@@ -2,26 +2,20 @@ dependencies:
 - name: prometheus
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 7.3.4
-- name: prometheus-node-exporter
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.5.0
 - name: grafana
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.17.4
 - name: nginx-ingress
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 0.29.2
-- name: kubernetes-dashboard
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.7.5
 - name: chaoskube
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 0.10.0
 - name: fluentd-elasticsearch
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.1.0
-- name: seq
+- name: fluentd-elasticsearch
   repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.1.1
-digest: sha256:a3ed052a33aa4f7868c31284c13de6e7ff8a6a2af22d467b0066c259ff44d871
-generated: 2018-10-27T22:01:14.716630827+11:00
+  version: 1.1.0
+digest: sha256:8ed3e913b6764dedd0c19ccc4c874e33710dc11ceb93ce7cda56b283121ebc81
+generated: 2018-11-15T21:49:47.428536069+11:00

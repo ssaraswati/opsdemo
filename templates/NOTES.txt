@@ -5,9 +5,7 @@
 
 http://site.localtest.me
 http://prometheus.localtest.me 
-http://prometheus-alertmanager.localtest.me
 http://grafana.localtest.me
-http://opsview.localtest.me
 username: admin
-password:
+password: badpassword🤣
 kubectl get secret --namespace default {{ .Release.Name }}-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
