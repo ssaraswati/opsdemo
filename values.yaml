@@ -18,90 +18,21 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
+elasticsearch:
+  enabled: false
+kibana:
+  enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - kibana.localtest.me
 chaoskube:
   enabled: false
 seq:
-  enabled: true
-  # ingress:
-  #   enabled: true
-  #   hosts:
-  #     - logs.localtest.me 
-  #     - seq.localtest.me 
+  enabled: false
 fluentd-elasticsearch:
   enabled: false
-fluentd:
-  enabled: true
-  configMaps:
-    system.conf: |-
-      <system>
-        root_dir /tmp/fluentd-buffers/
-      </system>
-    fluent.conf: |
-      <match fluent.**>
-        @type null
-      </match>
-      <source>
-        @type tail
-        path /var/log/containers/*.log
-        pos_file /var/log/fluentd-containers.log.pos
-        time_format %Y-%m-%dT%H:%M:%S.%NZ
-        tag kubernetes.*
-        format json
-        read_from_head true
-      </source>
 
-    containers.input.conf: |-
-    #
-    system.input.conf: |-
-    #
-    forward.input.conf: |-
-    #
-    monitoring.conf: |-
-    #
-    output.conf: |
-      <match kubernetes.var.log.containers.**fluentd**.log>
-        @type null
-      </match>
-      <match kubernetes.var.log.containers.**kube-system**.log>
-        @type null
-      </match>
-      <match kubernetes.var.log.containers.opsdemo-**.log>
-        @type null
-      </match>
-      <filter kubernetes.**>
-        @type kubernetes_metadata
-      </filter>
-      <match **>
-        @type stdout
-      </match>
-
-
-    containers.input.conf: |-
-
-    system.input.conf: |-
-
-    forward.input.conf: |-
-
-    monitoring.conf: |-
-
-    output.conf: |
-
-      <match kubernetes.var.log.containers.**fluentd**.log>
-        @type null
-      </match>
-      <match kubernetes.var.log.containers.**kube-system**.log>
-        @type null
-      </match>
-      <match kubernetes.var.log.containers.opsdemo-**.log>
-        @type null
-      </match>
-      <filter kubernetes.**>
-        @type kubernetes_metadata
-      </filter>
-      <match **>
-        @type stdout
-      </match>
 prometheus:
   enabled: true
   server:
