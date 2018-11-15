@@ -12,18 +12,13 @@ service:
 chaoskube:
   enabled: false
 seq:
-  enabled: true
-  # ingress:
-  #   enabled: true
-  #   hosts:
-  #     - logs.localtest.me 
-  #     - seq.localtest.me 
+  enabled: false
 fluentd-elasticsearch:
 
   image:
     repository: fluentdpython
     tag: v2
-  enabled: true
+  enabled: false
   configMaps:
     system.conf: |-
       <system>
@@ -353,8 +348,12 @@ kubernetes-dashboard:
     - dashboard.localtest.me
 
 grafana:
-  image:
-    repository: shyamtech/azuregrafana
+  plugins:
+    - grafana-clock-panel
+    - grafana-simple-json-datasource
+    - grafana-azure-monitor-datasource
+  downloadDashboardsImage:
+    repository: appropriate/curl
     tag: latest
     pullPolicy: IfNotPresent
   enabled: true
