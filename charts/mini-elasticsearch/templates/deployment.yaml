@@ -1,0 +1,34 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "mini-elasticsearch.fullname" . }}
+  labels:
+    app: {{ template "mini-elasticsearch.name" . }}
+    chart: {{ template "mini-elasticsearch.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "mini-elasticsearch.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "mini-elasticsearch.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: discovery.type
+            value: "single-node"
+          ports:
+            - name: es
+              containerPort: 9200 
+              protocol: TCP
+{{- end }}

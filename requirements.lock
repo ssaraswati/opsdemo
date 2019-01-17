@@ -17,8 +17,5 @@ dependencies:
 - name: kibana
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.1.2
-- name: seq
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.1.1
 digest: sha256:38fa3e45348111eaf80795cf84fa97490d3fa0cf56c14916178cfd0a1b228f8f
 generated: 2019-01-17T16:21:35.0092614+11:00

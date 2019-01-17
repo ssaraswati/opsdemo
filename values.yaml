@@ -18,20 +18,31 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-elasticsearch:
-  enabled: false
+
+mini-elasticsearch:
+  image:
+    tag: 6.5.4
+  service:
+    name: elasticsearch
+
 kibana:
-  enabled: false
+  enabled: true
+  image:
+    tag: 6.5.4
+  env:
+    ELASTICSEARCH_URL: http://elasticsearch:9200
   ingress:
     enabled: true
     hosts:
       - kibana.localtest.me
 chaoskube:
-  enabled: false
-seq:
-  enabled: false
-fluentd-elasticsearch:
-  enabled: false
+  enabled: true
+fluent-bit:
+  enabled: true
+  backend:
+    es:
+      time_key: '@ts'
+    type: es
 
 prometheus:
   enabled: true

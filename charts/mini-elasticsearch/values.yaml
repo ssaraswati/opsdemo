@@ -1,0 +1,8 @@
+enabled: true
+image:
+  repository: elasticsearch
+  tag: 6.5.4
+  pullPolicy: IfNotPresent
+
+service:
+  name: elasticsearch

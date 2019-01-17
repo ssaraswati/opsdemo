@@ -1,0 +1,21 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+  labels:
+    app: {{ template "mini-elasticsearch.name" . }}
+    chart: {{ template "mini-elasticsearch.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9200
+      targetPort: 9200
+      protocol: TCP
+      name: es
+  selector:
+    app: {{ template "mini-elasticsearch.name" . }}
+    release: {{ .Release.Name }}
+{{- end }}
