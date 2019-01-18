@@ -3,6 +3,12 @@ image:
   repository: nginx
   tag: stable
   pullPolicy: IfNotPresent
+noisylogs:
+  enabled: true
+  image:
+    repository: noisylogs
+    tag: latest
+    pullPolicy: IfNotPresent
 service:
   type: ClusterIP
   port: 80
@@ -43,7 +49,8 @@ fluent-bit:
     es:
       time_key: '@ts'
     type: es
-
+  filter:
+    mergeJSONLog: true
 prometheus:
   enabled: true
   server:

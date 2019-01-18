@@ -1,0 +1,37 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: "{{ template "OpsDemo.fullname" . }}-noisylogs"
+  labels:
+    app: "{{ template "OpsDemo.name" . }}-noisylogs"
+    chart: {{ template "OpsDemo.chart" . }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "{{ template "OpsDemo.name" . }}-noisylogs"
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: "{{ template "OpsDemo.name" . }}-noisylogs"
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.noisylogs.image.repository }}:{{ .Values.noisylogs.image.tag }}"
+          imagePullPolicy: {{ .Values.noisylogs.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /Healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /api/log
+              port: http
+            periodSeconds: 20
