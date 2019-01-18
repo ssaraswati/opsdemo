@@ -6,7 +6,7 @@ image:
 noisylogs:
   enabled: true
   image:
-    repository: noisylogs
+    repository: shyamtech/noisylogs
     tag: latest
     pullPolicy: IfNotPresent
 service:
